@@ -4,4 +4,3 @@ weight/
 wandb/
 *.pth
 *.onnx
-*.venv
