@@ -5,7 +5,7 @@ Copyright (c) 2024 The D-FINE Authors. All Rights Reserved.
 import cv2
 import numpy as np
 import openvino
-from openvino.runtime import Core
+from openvino import Core
 
 
 class OvInfer:
