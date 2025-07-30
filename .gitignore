@@ -2,4 +2,3 @@ output/
 weight/
 *.pyc
 wandb/
-.venv
