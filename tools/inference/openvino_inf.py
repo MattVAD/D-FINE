@@ -23,6 +23,7 @@ class OvInfer:
             self.compile_model.inputs[0].get_partial_shape()[2].get_length(),
             self.compile_model.inputs[0].get_partial_shape()[3].get_length(),
         ]
+        print(self.target_size)
         self.query_num = self.compile_model.outputs[0].get_partial_shape()[1].get_length()
 
     def infer(self, inputs: dict):
@@ -89,6 +90,7 @@ class OvInfer:
 
 if __name__ == "__main__":
     import argparse
+    import time
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-image", "--image", type=str, required=True)
@@ -96,6 +98,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     img = cv2.imread(args.image)
     mOvInfer = OvInfer(args.ov_model)
+    print(mOvInfer.get_available_device())
     inputs = mOvInfer.process_image(img, True)
-    outputs = mOvInfer.infer(inputs)
+    for _ in range(10):
+        start = time.time()
+        outputs = mOvInfer.infer(inputs)
+        end = time.time()
+        print(f'{end-start}s for inference')
     mOvInfer.draw_and_save_image(outputs, "openvino_result.jpg")
